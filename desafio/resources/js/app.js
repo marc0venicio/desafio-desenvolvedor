@@ -4,8 +4,10 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
 
+require('./bootstrap');
+//Import Vue Filter
+require('./filter');
 window.Vue = require('vue').default;
 
 /**

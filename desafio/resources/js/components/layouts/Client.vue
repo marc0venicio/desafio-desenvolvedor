@@ -1,14 +1,36 @@
 <template>
   <div class="container text-center my-4">
     <h1>Cadastro de clientes</h1>
-    <form method="get" action="">
-    <div class="text-center my-4">
-      <div class="row g-2">
+    <div class="card">
+                    <div class="card-header">
+                        Adicione um novo Cliente
+                    </div>
+                    <div class="card-body">
+                        <form class="form-inline" @submit.prevent="submit">
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <input v-model="fields.name" type="text" class="form-control ml-sm-2 mr-sm-4 my-2" placeholder="nome do cliente" required>
+                            </div>
+                            <div class="form-group">
+                                <label>email</label>
+                                <input v-model="fields.email" type="email" name="email" placeholder="Email do cliente" class="form-control ml-sm-2 mr-sm-4 my-2" required>
+                            </div>
+                            <div class="ml-auto text-right">
+                                <button type="submit" class="btn btn-primary my-2">Adicionar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+    <form @submit.prevent="submit">
+    <div class="text-center my-4"  v-for="client in clients" :key="client.id">
+      <div class="row g-2" v-if="editId == client.id">
         <div class="col-4">
         
-          <div class="form-floating">
+          <div class="form-floating" > 
           
             <input
+              v-model="editClientData.email"
               type="email"
               class="form-control"
               id="email"
@@ -23,6 +45,7 @@
         <div class="col-4">
           <div class="form-floating">
             <input
+            v-model="editClientData.name"
               type="text"
               class="form-control"
               id="name"
@@ -43,7 +66,6 @@
     </form>
     <div class="row-g-2">
         <h2 class="text-center">clientes castrados</h2>
-        <div><button type="submit" class="btn btn-success">Cadastrar novo</button></div>
         <table class="table table-dark table-striped">
   <thead>
     <tr>
@@ -59,7 +81,7 @@
       <td> {{client.email}} </td>
       <td> {{client.name}} </td>
       <td><a href="#"><button @click="onDelete(client.id)" class="btn btn-success">finalizar</button></a></td>
-      <td><button class="btn btn-warning">editar</button></td>
+      <td><button @click="onEdit(client)" class="btn btn-warning">editar</button></td>
     </tr>
   </tbody>
 </table>
